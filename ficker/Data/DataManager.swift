@@ -13,19 +13,23 @@ class DataManager: NSObject {
 
     func request(text: String,
                  pageCount: Int,
-                 completionHandler: @escaping (Data) -> Void) {
-        let urlString = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=0182f0b279dfa7f2cd2dee294d4b58db&text=\(text)&per_page=\(pageCount)&format=json&nojsoncallback=1"
-        if let url = URL(string: urlString) {
+                 page: Int,
+                 completionHandler: @escaping (Data?, String?) -> Void) {
+        let urlString = "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=0182f0b279dfa7f2cd2dee294d4b58db&text=\(text)&per_page=\(pageCount)&page=\(page)&format=json&nojsoncallback=1"
+        if let urlEncode = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+            let url = URL(string: urlEncode) {
             Alamofire.request(url).response { (response) in
                 if response.error == nil {
-                    completionHandler(response.data!)
+                    completionHandler(response.data, nil)
                 }
                 else {
-                    //                self.httpError(errorString: response.error?.localizedDescription ?? "debug httpsGetRequest error")
+                    completionHandler(nil, response.error?.localizedDescription)
                 }
             }
+        } else {
+            print("url: \(urlString)")
+            completionHandler(nil, "search error")
         }
     }
     
 }
-//https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=0182f0b279dfa7f2cd2dee294d4b58db&text=%E7%BE%8E%E9%A3%9F&per_page=10&format=json&nojsoncallback=1
