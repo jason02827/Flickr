@@ -13,7 +13,7 @@ class FavoriteViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var photoList = [String: [String: String]]()
-    var photoListArray = [[String: String]]()
+    var photoViewModels = [PhotoViewModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +24,7 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        photoListArray.removeAll()
+        photoViewModels.removeAll()
         let userDefaults = UserDefaults.standard
         if let favorite = userDefaults.value(forKey: "favorite") as? [String : [String : String]] {
             photoList = favorite
@@ -32,7 +32,10 @@ class FavoriteViewController: UIViewController {
         for photo in photoList {
             if let image = photo.value["image"],
                 let title = photo.value["title"] {
-                photoListArray.append(["image": image, "title": title])
+                let photoViewModel = PhotoViewModel()
+                photoViewModel.title = title
+                photoViewModel.image = image
+                photoViewModels.append(photoViewModel)
             }
         }
         collectionView.reloadData()
@@ -44,8 +47,8 @@ class FavoriteViewController: UIViewController {
 extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if photoListArray.count > 0 {
-            return photoListArray.count
+        if photoViewModels.count > 0 {
+            return photoViewModels.count
         } else {
             return 0
         }
@@ -53,13 +56,8 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchResultCollectionViewCell", for: indexPath) as? SearchResultCollectionViewCell else { return SearchResultCollectionViewCell() }
-        if let image = photoListArray[indexPath.row]["image"],
-            let title = photoListArray[indexPath.row]["title"] {
-            cell.iconImageView.kf.indicatorType = .activity
-            cell.iconImageView.kf.setImage(with: URL(string: image))
-            cell.titleLabel.text = title
-            cell.favoriteButton.isHidden = true
-        }
+        cell.setupUI(viewModel: photoViewModels[indexPath.row])
+        cell.favoriteImageView.isHidden = true
         return cell
     }
     

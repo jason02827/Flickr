@@ -18,61 +18,62 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fa-1a-Uya">
-                        <rect key="frame" x="53" y="53" width="180" height="180"/>
+                        <rect key="frame" x="0.0" y="0.0" width="286" height="286"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ECQ-Wv-sS7">
-                                <rect key="frame" x="0.0" y="0.0" width="155" height="155"/>
+                                <rect key="frame" x="10" y="2" width="266" height="266"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="ECQ-Wv-sS7" secondAttribute="height" multiplier="1:1" id="ikA-NR-lsy"/>
+                                    <constraint firstAttribute="width" secondItem="ECQ-Wv-sS7" secondAttribute="height" multiplier="1:1" id="fIN-5K-G8f"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6Z-Iu-pCo">
-                                <rect key="frame" x="0.0" y="157" width="180" height="17"/>
+                                <rect key="frame" x="10" y="270" width="266" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="17" id="RbD-NJ-T94"/>
+                                    <constraint firstAttribute="height" constant="16" id="fLJ-5E-dXx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UyC-cx-fjL">
-                                <rect key="frame" x="10" y="10" width="30" height="30"/>
-                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="favorite_white" translatesAutoresizingMaskIntoConstraints="NO" id="RTw-dE-8SF">
+                                <rect key="frame" x="20" y="12" width="30" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="6yU-pR-ScW"/>
-                                    <constraint firstAttribute="width" constant="30" id="Ulg-33-fbG"/>
+                                    <constraint firstAttribute="height" constant="30" id="Fwz-5l-1Iy"/>
+                                    <constraint firstAttribute="width" constant="30" id="YB6-S3-eGT"/>
                                 </constraints>
-                            </button>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="UyC-cx-fjL" firstAttribute="top" secondItem="0fa-1a-Uya" secondAttribute="top" constant="10" id="07w-Bq-sgl"/>
-                            <constraint firstAttribute="width" secondItem="0fa-1a-Uya" secondAttribute="height" multiplier="1:1" id="ITa-Rz-Yt4"/>
-                            <constraint firstItem="ECQ-Wv-sS7" firstAttribute="top" secondItem="0fa-1a-Uya" secondAttribute="top" id="RMC-aE-IIZ"/>
-                            <constraint firstItem="A6Z-Iu-pCo" firstAttribute="top" secondItem="ECQ-Wv-sS7" secondAttribute="bottom" constant="2" id="XDf-ZS-Cjd"/>
-                            <constraint firstItem="A6Z-Iu-pCo" firstAttribute="centerX" secondItem="0fa-1a-Uya" secondAttribute="centerX" id="lgj-m0-Yyt"/>
-                            <constraint firstAttribute="bottom" secondItem="ECQ-Wv-sS7" secondAttribute="bottom" constant="25" id="oez-Q5-CcI"/>
-                            <constraint firstItem="A6Z-Iu-pCo" firstAttribute="leading" secondItem="0fa-1a-Uya" secondAttribute="leading" id="puK-dd-F3K"/>
-                            <constraint firstAttribute="trailing" secondItem="A6Z-Iu-pCo" secondAttribute="trailing" id="qor-E2-Arl"/>
-                            <constraint firstItem="ECQ-Wv-sS7" firstAttribute="leading" secondItem="0fa-1a-Uya" secondAttribute="leading" id="sW3-Eb-TFK"/>
-                            <constraint firstAttribute="width" constant="180" id="udg-bv-Let"/>
-                            <constraint firstItem="UyC-cx-fjL" firstAttribute="leading" secondItem="0fa-1a-Uya" secondAttribute="leading" constant="10" id="w78-UF-wxt"/>
+                            <constraint firstItem="A6Z-Iu-pCo" firstAttribute="trailing" secondItem="ECQ-Wv-sS7" secondAttribute="trailing" id="DYd-sw-Xgd"/>
+                            <constraint firstItem="A6Z-Iu-pCo" firstAttribute="top" secondItem="ECQ-Wv-sS7" secondAttribute="bottom" constant="2" id="IHC-Qg-zCf"/>
+                            <constraint firstItem="A6Z-Iu-pCo" firstAttribute="leading" secondItem="ECQ-Wv-sS7" secondAttribute="leading" id="NnR-pS-7M7"/>
+                            <constraint firstItem="ECQ-Wv-sS7" firstAttribute="centerX" secondItem="0fa-1a-Uya" secondAttribute="centerX" id="j0c-TJ-F45"/>
+                            <constraint firstItem="ECQ-Wv-sS7" firstAttribute="top" secondItem="0fa-1a-Uya" secondAttribute="top" constant="2" id="sgT-5h-nx0"/>
+                            <constraint firstItem="RTw-dE-8SF" firstAttribute="top" secondItem="ECQ-Wv-sS7" secondAttribute="top" constant="10" id="u2B-Va-fLc"/>
+                            <constraint firstAttribute="bottom" secondItem="A6Z-Iu-pCo" secondAttribute="bottom" id="vU1-sL-86P"/>
+                            <constraint firstItem="RTw-dE-8SF" firstAttribute="leading" secondItem="ECQ-Wv-sS7" secondAttribute="leading" constant="10" id="vfg-Oj-6na"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="0fa-1a-Uya" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="UdG-ZA-RYd"/>
-                <constraint firstItem="0fa-1a-Uya" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="skr-R5-d1c"/>
+                <constraint firstItem="0fa-1a-Uya" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ksd-e5-pfL"/>
+                <constraint firstAttribute="trailing" secondItem="0fa-1a-Uya" secondAttribute="trailing" id="aNx-Ps-hp8"/>
+                <constraint firstAttribute="bottom" secondItem="0fa-1a-Uya" secondAttribute="bottom" id="b75-Dm-czH"/>
+                <constraint firstItem="0fa-1a-Uya" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="cFN-TZ-XsB"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="466" height="280"/>
             <connections>
-                <outlet property="favoriteButton" destination="UyC-cx-fjL" id="a5T-bq-wYU"/>
+                <outlet property="favoriteImageView" destination="RTw-dE-8SF" id="SBQ-MY-n0V"/>
                 <outlet property="iconImageView" destination="ECQ-Wv-sS7" id="PFQ-Ho-o43"/>
                 <outlet property="titleLabel" destination="A6Z-Iu-pCo" id="Fmk-Ir-5te"/>
             </connections>
             <point key="canvasLocation" x="432.60869565217394" y="230.35714285714283"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="favorite_white" width="23" height="20"/>
+    </resources>
 </document>

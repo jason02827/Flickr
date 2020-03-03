@@ -16,8 +16,10 @@ class SearchResultViewController: UIViewController {
     
     var keyword = ""
     var pageCount = Int()
+    var currentPage = 1
+    var totalPages = Int()
     let dataManager = DataManager()
-    var photoList = [[String: String]]()
+    var photoViewModels = [PhotoViewModel]()
     let userDefaults = UserDefaults.standard
 
     override func viewDidLoad() {
@@ -28,22 +30,39 @@ class SearchResultViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "SearchResultCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SearchResultCollectionViewCell")
-
-        dataManager.request(text: keyword, pageCount: pageCount) { [weak self] (response) in
+        loadContent(currentPage: 1)
+    }
+    
+    func loadContent(currentPage: Int) {
+        dataManager.request(text: keyword, pageCount: pageCount, page: currentPage) { [weak self] (response, errorString)  in
             do {
-                let decodeResponse = try JSONDecoder().decode(PhotoSearchObj.self, from: response)
-                if let photoLists = decodeResponse.photos?.photo {
-                    if photoLists.count > 0 {
-                        self?.generateContent(lists: photoLists)
-                    } else {
-                        self?.acticityIndicator.stopAnimating()
-                        self?.showAlert(title: "沒有內容")
+                if let interResponse = response {
+                    let decodeResponse = try JSONDecoder().decode(PhotoSearchObj.self, from: interResponse)
+                    if let photos = decodeResponse.photos,
+                        let photoLists = decodeResponse.photos?.photo {
+                        if photoLists.count > 0 {
+                            self?.contentInfo(info: photos)
+                            self?.generateContent(lists: photoLists)
+                        } else {
+                            self?.acticityIndicator.stopAnimating()
+                            self?.showAlert(title: "no content")
+                        }
                     }
+                } else {
+                    self?.showAlert(title: errorString ?? "response error")
                 }
             }
             catch {
-                self?.showAlert(title: "下載失敗")
+                self?.showAlert(title: "download error")
             }
+        }
+    }
+    
+    func contentInfo(info: PhotoSearchObj.PhotosObj) {
+        if let page = info.page,
+            let pages = info.pages {
+            currentPage = page
+            totalPages = pages
         }
     }
     
@@ -54,8 +73,10 @@ class SearchResultViewController: UIViewController {
                 let id = list.id,
                 let secret = list.secret,
                 let title = list.title {
-                photoList.append(["image": "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_m.jpg",
-                                  "title": title])
+                let photoViewModel = PhotoViewModel()
+                photoViewModel.title = title
+                photoViewModel.image = "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_m.jpg"
+                photoViewModels.append(photoViewModel)
             }
         }
         collectionView.reloadData()
@@ -79,8 +100,8 @@ class SearchResultViewController: UIViewController {
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if photoList.count > 0 {
-            return photoList.count
+        if photoViewModels.count > 0 {
+            return photoViewModels.count
         } else {
             return 0
         }
@@ -88,42 +109,22 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchResultCollectionViewCell", for: indexPath) as? SearchResultCollectionViewCell else { return SearchResultCollectionViewCell() }
-        if let image = photoList[indexPath.row]["image"],
-            let title = photoList[indexPath.row]["title"] {
-            cell.iconImageView.kf.indicatorType = .activity
-            cell.iconImageView.kf.setImage(with: URL(string: image))
-            cell.titleLabel.text = title
-            cell.favoriteButton.backgroundColor = .systemGray
-            cell.isSelect = false
-            cell.image = image
-            if let cacheFavorite = userDefaults.value(forKey: "favorite") as? [String: [String: String]],
-                let _ = cacheFavorite[image] {
-                cell.isSelect = true
-                cell.favoriteButton.backgroundColor = .systemRed
-            }
-        }
+        cell.setupUI(viewModel: photoViewModels[indexPath.row])
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? SearchResultCollectionViewCell {
-            var favorite = [String: [String: String]]()
-            if let cacheFavorite = userDefaults.value(forKey: "favorite") as? [String: [String: String]] {
-                favorite = cacheFavorite
-            }
-            if cell.isSelect {
-                favorite.removeValue(forKey: cell.image)
-                cell.isSelect = false
-                cell.favoriteButton.backgroundColor = .systemGray
-                
-            } else {
-                favorite[cell.image] = ["image": cell.image, "title": cell.titleLabel.text!]
-                cell.isSelect = true
-                cell.favoriteButton.backgroundColor = .systemRed
-                
-            }
-            userDefaults.set(favorite, forKey: "favorite")
-            userDefaults.synchronize()
+            cell.setupSelectUI()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == photoViewModels.count - 2 &&
+            currentPage + 1 <= totalPages {
+            loadContent(currentPage: currentPage + 1)
+            let toast = Toast()
+            toast.showToast(text: "繼續載入下一頁", view: view)
         }
     }
     
