@@ -15,10 +15,14 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var centerYConstraint: NSLayoutConstraint!
         
+    let viewModel = SearchViewModel()
+    let toast = Toast()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         keywordTextField.delegate = self
         pageCountTextField.delegate = self
+        bindViewModel()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
@@ -30,6 +34,15 @@ class SearchViewController: UIViewController {
         pageCountTextField.text = ""
     }
 
+    func bindViewModel() {
+        viewModel.checkCompletion = { [weak self] (isShow) in
+            if !isShow {
+                self?.toast.showToast(text: "格式錯誤", view: self!.view)
+            }
+            self?.checkSearchButton(isShow: isShow)
+        }
+    }
+    
     @objc func keyboardWillChange(notification: Notification) {
         if let userInfo = notification.userInfo,
             let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
@@ -43,7 +56,8 @@ class SearchViewController: UIViewController {
             }
             else {
                 centerYConstraint.constant = 0
-                checkTextSpace()
+                viewModel.search = (keywordTextField.text ?? " ",
+                                    pageCountTextField.text ?? " ")
             }
             UIView.animate(withDuration: duration,
                            delay: 0.1,
@@ -66,32 +80,6 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func checkTextSpace() {
-        guard let keyword = keywordTextField.text else { return }
-        guard let pageCount = pageCountTextField.text else { return }
-        if keyword.contains(" ") || pageCount.contains(" ") || keyword.isEmpty || pageCount.isEmpty {
-            checkSearchButton(isShow: false)
-            showAlert()
-        } else {
-            if Int(pageCount) != nil {
-                checkSearchButton(isShow: true)
-            } else {
-                showAlert()
-            }
-        }
-    }
-
-    func showAlert() {
-        let alert = Alert()
-        alert.alertWithSelfViewController(viewController: self,
-                                          title: "格式錯誤",
-                                          message: "",
-                                          confirmTitle: "確定",
-                                          cancelTitle: "",
-                                          confirmCompletionHandler: {},
-                                          cancelCompletionHandler: {})
-    }
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if keywordTextField.isFirstResponder {
             keywordTextField.resignFirstResponder()
@@ -102,9 +90,14 @@ class SearchViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? SearchResultViewController {
-            vc.keyword = keywordTextField.text!
-            vc.pageCount = Int(pageCountTextField.text!)!
+        if let vc = segue.destination as? SearchResultViewController,
+            let keyword = keywordTextField.text,
+            let pageCount = pageCountTextField.text,
+            let pageCountInt = Int(pageCount) {
+            vc.keyword = keyword
+            vc.pageCount = pageCountInt
+        } else {
+            toast.showToast(text: "格式錯誤", view: view)
         }
     }
     
