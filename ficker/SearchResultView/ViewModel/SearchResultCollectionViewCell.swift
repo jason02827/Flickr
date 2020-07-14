@@ -30,11 +30,11 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         image = ""
     }
 
-    func setupUI(viewModel: PhotoViewModel) {
+    func setupUI(model: PhotoModel) {
         iconImageView.kf.indicatorType = .activity
-        iconImageView.kf.setImage(with: URL(string: viewModel.image))
-        titleLabel.text = viewModel.title
-        image = viewModel.image
+        iconImageView.kf.setImage(with: URL(string: model.image))
+        titleLabel.text = model.title
+        image = model.image
         checkFavoriteState()
     }
     

@@ -16,11 +16,8 @@ class SearchResultViewController: UIViewController {
     
     var keyword = ""
     var pageCount = Int()
-    var currentPage = 1
-    var totalPages = Int()
-    let dataManager = DataManager()
-    var photoViewModels = [PhotoViewModel]()
-    let userDefaults = UserDefaults.standard
+    let viewModel = SearchResultViewModel()
+    let toast = Toast()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,68 +27,19 @@ class SearchResultViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "SearchResultCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SearchResultCollectionViewCell")
-        loadContent(currentPage: 1)
+        bindViewModel()
     }
     
-    func loadContent(currentPage: Int) {
-        dataManager.request(text: keyword, pageCount: pageCount, page: currentPage) { [weak self] (response, errorString)  in
-            do {
-                if let interResponse = response {
-                    let decodeResponse = try JSONDecoder().decode(PhotoSearchObj.self, from: interResponse)
-                    if let photos = decodeResponse.photos,
-                        let photoLists = decodeResponse.photos?.photo {
-                        if photoLists.count > 0 {
-                            self?.contentInfo(info: photos)
-                            self?.generateContent(lists: photoLists)
-                        } else {
-                            self?.acticityIndicator.stopAnimating()
-                            self?.showAlert(title: "no content")
-                        }
-                    }
-                } else {
-                    self?.showAlert(title: errorString ?? "response error")
-                }
+    func bindViewModel() {
+        viewModel.loadCompletion = { [weak self] (error) in
+            if let error = error {
+                self?.toast.showToast(text: error, view: self!.view)
+            } else {
+                self?.collectionView.reloadData()
             }
-            catch {
-                self?.showAlert(title: "download error")
-            }
+            self?.acticityIndicator.stopAnimating()
         }
-    }
-    
-    func contentInfo(info: PhotoSearchObj.PhotosObj) {
-        if let page = info.page,
-            let pages = info.pages {
-            currentPage = page
-            totalPages = pages
-        }
-    }
-    
-    func generateContent(lists: [PhotoSearchObj.PhotoDetailObj]) {
-        for list in lists {
-            if let farm = list.farm,
-                let server = list.server,
-                let id = list.id,
-                let secret = list.secret,
-                let title = list.title {
-                let photoViewModel = PhotoViewModel()
-                photoViewModel.title = title
-                photoViewModel.image = "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_m.jpg"
-                photoViewModels.append(photoViewModel)
-            }
-        }
-        collectionView.reloadData()
-        acticityIndicator.stopAnimating()
-    }
-    
-    func showAlert(title: String) {
-        let alert = Alert()
-        alert.alertWithSelfViewController(viewController: self,
-                                          title: title,
-                                          message: "",
-                                          confirmTitle: "確定",
-                                          cancelTitle: "",
-                                          confirmCompletionHandler: {},
-                                          cancelCompletionHandler: {})
+        viewModel.loadContent(keyword: keyword, pageCount: pageCount, currentPage: 1)
     }
     
 }
@@ -100,8 +48,8 @@ class SearchResultViewController: UIViewController {
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if photoViewModels.count > 0 {
-            return photoViewModels.count
+        if viewModel.photoModels.count > 0 {
+            return viewModel.photoModels.count
         } else {
             return 0
         }
@@ -109,7 +57,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchResultCollectionViewCell", for: indexPath) as? SearchResultCollectionViewCell else { return SearchResultCollectionViewCell() }
-        cell.setupUI(viewModel: photoViewModels[indexPath.row])
+        cell.setupUI(model: viewModel.photoModels[indexPath.row])
         return cell
     }
 
@@ -120,10 +68,9 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == photoViewModels.count - 2 &&
-            currentPage + 1 <= totalPages {
-            loadContent(currentPage: currentPage + 1)
-            let toast = Toast()
+        if indexPath.row == viewModel.photoModels.count - 2 &&
+            viewModel.currentPage + 1 <= viewModel.totalPages {
+            viewModel.loadContent(keyword: keyword, pageCount: pageCount, currentPage: viewModel.currentPage + 1)
             toast.showToast(text: "繼續載入下一頁", view: view)
         }
     }

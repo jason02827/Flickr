@@ -1,5 +1,5 @@
 //
-//  PhotoViewModel.swift
+//  PhotoModel.swift
 //  ficker
 //
 //  Created by Chenpoting on 2020/3/1.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoViewModel: NSObject {
+class PhotoModel: NSObject {
     
     var title: String = ""
     var image: String = ""
