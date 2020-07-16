@@ -11,7 +11,7 @@
         <!--搜尋結果-->
         <scene sceneID="faK-Fx-fyW">
             <objects>
-                <viewController id="XmT-nQ-5BS" customClass="SearchResultViewController" customModule="ficker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XmT-nQ-5BS" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wmi-TQ-Yht">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,7 +72,7 @@
         <!--我的最愛-->
         <scene sceneID="Vig-ik-6Vn">
             <objects>
-                <viewController id="4Bu-Zc-EJT" customClass="FavoriteViewController" customModule="ficker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4Bu-Zc-EJT" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OlI-k8-oU1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -122,7 +122,7 @@
         <!--搜尋輸入頁-->
         <scene sceneID="Icf-6m-lL0">
             <objects>
-                <viewController id="6WR-KS-JfD" customClass="SearchViewController" customModule="ficker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6WR-KS-JfD" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9zY-vj-tHL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
