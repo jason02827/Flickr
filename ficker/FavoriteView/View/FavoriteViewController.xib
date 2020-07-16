@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FavoriteViewController" customModule="ficker" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="YMt-AB-XIV" id="8nO-R6-JOm"/>
+                <outlet property="view" destination="iN0-l3-epB" id="HVz-Sb-yj6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vKV-gx-IAf">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="YMt-AB-XIV">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="R6P-9V-GHL">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="YMt-AB-XIV" secondAttribute="trailing" id="UTY-wU-NHY"/>
+                        <constraint firstItem="YMt-AB-XIV" firstAttribute="leading" secondItem="vKV-gx-IAf" secondAttribute="leading" id="ctw-T0-O6k"/>
+                        <constraint firstItem="YMt-AB-XIV" firstAttribute="top" secondItem="vKV-gx-IAf" secondAttribute="top" id="f27-Mt-7fx"/>
+                        <constraint firstAttribute="bottom" secondItem="YMt-AB-XIV" secondAttribute="bottom" id="v0m-fu-TKI"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vKV-gx-IAf" secondAttribute="bottom" id="50A-J0-whh"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vKV-gx-IAf" secondAttribute="trailing" id="5g6-gY-bMZ"/>
+                <constraint firstItem="vKV-gx-IAf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="7sn-8h-7T8"/>
+                <constraint firstItem="vKV-gx-IAf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="sBZ-wt-avr"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="132" y="152"/>
+        </view>
+    </objects>
+</document>

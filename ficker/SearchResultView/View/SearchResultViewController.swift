@@ -30,6 +30,11 @@ class SearchResultViewController: UIViewController {
         bindViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     func bindViewModel() {
         viewModel.loadCompletion = { [weak self] (error) in
             if let error = error {

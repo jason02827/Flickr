@@ -16,6 +16,7 @@ class FavoriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "我的最愛"
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "SearchResultCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SearchResultCollectionViewCell")
@@ -23,7 +24,9 @@ class FavoriteViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.getFavoriteContent()
+        tabBarController?.tabBar.isHidden = false
     }
     
     func bindViewModel() {
