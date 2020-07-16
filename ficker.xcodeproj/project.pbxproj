@@ -12,9 +12,13 @@
 		960B392F23F47B1D00DF61EB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B392E23F47B1D00DF61EB /* SearchViewController.swift */; };
 		9615840723F432A9007BECB8 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615840623F432A9007BECB8 /* DataManager.swift */; };
 		9615840B23F43888007BECB8 /* PhotoSearchObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615840A23F43888007BECB8 /* PhotoSearchObj.swift */; };
+		96177EF424BEFF7D006AC043 /* UNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96177EF324BEFF7D006AC043 /* UNavigationController.swift */; };
+		96177EF624BEFF9D006AC043 /* UTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96177EF524BEFF9D006AC043 /* UTabBarController.swift */; };
+		96177EFB24C0140A006AC043 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96177EFA24C0140A006AC043 /* ColorExtension.swift */; };
+		96177F0324C0347A006AC043 /* SearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96177F0224C0347A006AC043 /* SearchResultViewController.xib */; };
 		9617F53F23F591FE002E24E3 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9617F53E23F591FE002E24E3 /* FavoriteViewController.swift */; };
-		9617F54123F5A1BF002E24E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9617F54023F5A1BF002E24E3 /* SceneDelegate.swift */; };
 		9617F54423F5A337002E24E3 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9617F54323F5A337002E24E3 /* Alert.swift */; };
+		962B2BF524C037F50024F0C9 /* FavoriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962B2BF424C037F50024F0C9 /* FavoriteViewController.xib */; };
 		962E466124BB370500B55A6A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E466024BB370500B55A6A /* SearchViewModel.swift */; };
 		962E466324BC165100B55A6A /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E466224BC165100B55A6A /* SearchResultViewModel.swift */; };
 		962E466524BDAFF800B55A6A /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E466424BDAFF800B55A6A /* PhotoModel.swift */; };
@@ -35,9 +39,13 @@
 		960B392E23F47B1D00DF61EB /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		9615840623F432A9007BECB8 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		9615840A23F43888007BECB8 /* PhotoSearchObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchObj.swift; sourceTree = "<group>"; };
+		96177EF324BEFF7D006AC043 /* UNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNavigationController.swift; sourceTree = "<group>"; };
+		96177EF524BEFF9D006AC043 /* UTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTabBarController.swift; sourceTree = "<group>"; };
+		96177EFA24C0140A006AC043 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		96177F0224C0347A006AC043 /* SearchResultViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultViewController.xib; sourceTree = "<group>"; };
 		9617F53E23F591FE002E24E3 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
-		9617F54023F5A1BF002E24E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9617F54323F5A337002E24E3 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		962B2BF424C037F50024F0C9 /* FavoriteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteViewController.xib; sourceTree = "<group>"; };
 		962E466024BB370500B55A6A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		962E466224BC165100B55A6A /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		962E466424BDAFF800B55A6A /* PhotoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
@@ -100,11 +108,21 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		96177EF924C013AC006AC043 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				96177EFA24C0140A006AC043 /* ColorExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		9617F54223F5A322002E24E3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				9617F54323F5A337002E24E3 /* Alert.swift */,
 				96D59E4C240D552500230744 /* Toast.swift */,
+				96177EF324BEFF7D006AC043 /* UNavigationController.swift */,
+				96177EF524BEFF9D006AC043 /* UTabBarController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -173,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				9677239923F2FD8D003C1B5A /* SearchResultViewController.swift */,
+				96177F0224C0347A006AC043 /* SearchResultViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -207,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				9617F53E23F591FE002E24E3 /* FavoriteViewController.swift */,
+				962B2BF424C037F50024F0C9 /* FavoriteViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -243,10 +263,10 @@
 				962E465824BB163200B55A6A /* SearchResultView */,
 				962E465424BA01F900B55A6A /* SearchView */,
 				9621FEE0240BEDFA002EF817 /* ViewModel */,
+				96177EF924C013AC006AC043 /* Extension */,
 				9617F54223F5A322002E24E3 /* Common */,
 				9615840823F4383F007BECB8 /* Data */,
 				969AF5B323F2EDA10050BA20 /* AppDelegate.swift */,
-				9617F54023F5A1BF002E24E3 /* SceneDelegate.swift */,
 				969AF5B923F2EDA10050BA20 /* Main.storyboard */,
 				969AF5BC23F2EDA10050BA20 /* Assets.xcassets */,
 				969AF5BE23F2EDA10050BA20 /* LaunchScreen.storyboard */,
@@ -315,7 +335,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96177F0324C0347A006AC043 /* SearchResultViewController.xib in Resources */,
 				969AF5C023F2EDA10050BA20 /* LaunchScreen.storyboard in Resources */,
+				962B2BF524C037F50024F0C9 /* FavoriteViewController.xib in Resources */,
 				969AF5BD23F2EDA10050BA20 /* Assets.xcassets in Resources */,
 				969AF5BB23F2EDA10050BA20 /* Main.storyboard in Resources */,
 				960B392D23F44CAB00DF61EB /* SearchResultCollectionViewCell.xib in Resources */,
@@ -336,6 +358,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-ficker/Pods-ficker-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -343,6 +366,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -380,12 +404,14 @@
 			files = (
 				9617F54423F5A337002E24E3 /* Alert.swift in Sources */,
 				9615840723F432A9007BECB8 /* DataManager.swift in Sources */,
-				9617F54123F5A1BF002E24E3 /* SceneDelegate.swift in Sources */,
+				96177EFB24C0140A006AC043 /* ColorExtension.swift in Sources */,
 				960B392F23F47B1D00DF61EB /* SearchViewController.swift in Sources */,
 				962E466524BDAFF800B55A6A /* PhotoModel.swift in Sources */,
 				9615840B23F43888007BECB8 /* PhotoSearchObj.swift in Sources */,
 				962E466724BDF35200B55A6A /* FavoriteViewModel.swift in Sources */,
+				96177EF624BEFF9D006AC043 /* UTabBarController.swift in Sources */,
 				9617F53F23F591FE002E24E3 /* FavoriteViewController.swift in Sources */,
+				96177EF424BEFF7D006AC043 /* UNavigationController.swift in Sources */,
 				962E466124BB370500B55A6A /* SearchViewModel.swift in Sources */,
 				969AF5B423F2EDA10050BA20 /* AppDelegate.swift in Sources */,
 				962E466324BC165100B55A6A /* SearchResultViewModel.swift in Sources */,

@@ -19,6 +19,5 @@ class UTabBarController: UITabBarController {
         viewControllers = [UNavigationController(rootViewController: vc1),
                            UNavigationController(rootViewController: vc2)]
     }
-    
 
 }

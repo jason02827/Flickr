@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import SnapKit
 
 class SearchViewController: UIViewController {
 
-    @IBOutlet weak var keywordTextField: UITextField!
-    @IBOutlet weak var pageCountTextField: UITextField!
-    @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var centerYConstraint: NSLayoutConstraint!
-        
     let viewModel = SearchViewModel()
     let toast = Toast()
+    var centerConstraint: Constraint?
+    var keywordTextField = UITextField()
+    var pageCountTextField = UITextField()
+    var searchButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         keywordTextField.delegate = self
         pageCountTextField.delegate = self
         bindViewModel()
@@ -37,9 +38,75 @@ class SearchViewController: UIViewController {
     func bindViewModel() {
         viewModel.checkCompletion = { [weak self] (isShow) in
             if !isShow {
-                self?.toast.showToast(text: "格式錯誤", view: self!.view)
+                self?.toast.showToast(text: "格式錯誤，不可含有空白", view: self!.view)
             }
             self?.checkSearchButton(isShow: isShow)
+        }
+    }
+    
+    func setupUI() {
+        navigationItem.title = "搜尋輸入頁"
+        keywordTextField = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        keywordTextField.placeholder = "欲搜尋內容"
+        textFieldUI(textField: keywordTextField)
+        
+        pageCountTextField = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        pageCountTextField.placeholder = "每頁呈現數量"
+        pageCountTextField.keyboardType = .numberPad
+        textFieldUI(textField: pageCountTextField)
+        
+        searchButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        searchButton.setTitle("搜尋", for: .normal)
+        searchButton.setBackgroundImage(UIColor.systemBlue.image(), for: .normal)
+        searchButton.setBackgroundImage(UIColor.systemGray.image(), for: .disabled)
+        searchButton.addTarget(self, action: #selector(searchButtonClick), for: .touchUpInside)
+        
+        view.addSubview(keywordTextField)
+        view.addSubview(pageCountTextField)
+        view.addSubview(searchButton)
+        
+        keywordTextField.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(40)
+            make.trailing.equalToSuperview().offset(-40)
+            make.height.equalTo(34)
+            make.bottom.equalTo(pageCountTextField).offset(-54)
+        }
+        pageCountTextField.snp.makeConstraints { (make) in
+            pageCountTextFieldConstraints(make: make)
+        }
+        searchButton.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(40)
+            make.trailing.equalToSuperview().offset(-40)
+            make.height.equalTo(34)
+            make.top.equalTo(pageCountTextField).offset(54)
+        }
+    }
+    
+    func pageCountTextFieldConstraints(make: ConstraintMaker) {
+        make.leading.equalToSuperview().offset(40)
+        make.trailing.equalToSuperview().offset(-40)
+        make.height.equalTo(34)
+        make.center.equalToSuperview()
+    }
+    
+    func textFieldUI(textField: UITextField) {
+        textField.layer.cornerRadius = 4
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.borderWidth = 1
+        textField.leftViewMode = .always
+        textField.leftView = UIView(frame: .init(x: 0, y: 0, width: 10, height: 1))
+    }
+    
+    @objc func searchButtonClick() {
+        let vc = SearchResultViewController()
+        if let keyword = keywordTextField.text,
+            let pageCount = pageCountTextField.text,
+            let pageCountInt = Int(pageCount) {
+            vc.keyword = keyword
+            vc.pageCount = pageCountInt
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            toast.showToast(text: "格式錯誤，不可含有空白", view: view)
         }
     }
     
@@ -51,11 +118,15 @@ class SearchViewController: UIViewController {
             let frame = value.cgRectValue
             let intersection = frame.intersection(self.view.frame)
             if intersection.height > 0 {
-                centerYConstraint.constant = -50
+                pageCountTextField.snp.makeConstraints { (make) in
+                    make.center.equalToSuperview().offset(-40)
+                }
                 checkSearchButton(isShow: false)
             }
             else {
-                centerYConstraint.constant = 0
+                pageCountTextField.snp.remakeConstraints { (make) in
+                    pageCountTextFieldConstraints(make: make)
+                }
                 viewModel.search = (keywordTextField.text ?? " ",
                                     pageCountTextField.text ?? " ")
             }
@@ -86,18 +157,6 @@ class SearchViewController: UIViewController {
         }
         if pageCountTextField.isFirstResponder {
             pageCountTextField.resignFirstResponder()
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? SearchResultViewController,
-            let keyword = keywordTextField.text,
-            let pageCount = pageCountTextField.text,
-            let pageCountInt = Int(pageCount) {
-            vc.keyword = keyword
-            vc.pageCount = pageCountInt
-        } else {
-            toast.showToast(text: "格式錯誤", view: view)
         }
     }
     
