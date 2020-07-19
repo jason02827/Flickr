@@ -11,25 +11,19 @@ import UIKit
 class SearchViewModel: NSObject {
     
     var checkCompletion: ((Bool) -> Void)?
-    
-    var search: (keyword: String, pageCount: String) = ("", "") {
-        didSet {
-            checkFormat()
-        }
-    }
+    var keyword: String?
+    var pageCount: Int?
     
     func checkFormat() {
-        if search.keyword.contains(" ") ||
-            search.pageCount.contains(" ") ||
-            search.keyword.isEmpty ||
-            search.pageCount.isEmpty {
-            checkCompletion?(false)
-        } else {
-            if Int(search.pageCount) != nil {
-                checkCompletion?(true)
-            } else {
+        if let keyword = keyword,
+            let _ = pageCount {
+            if keyword.contains(" ") || keyword.isEmpty {
                 checkCompletion?(false)
+            } else {
+                checkCompletion?(true)
             }
+        } else {
+            checkCompletion?(false)
         }
     }
     

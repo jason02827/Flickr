@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class SearchViewController: UIViewController {
 
@@ -17,10 +19,12 @@ class SearchViewController: UIViewController {
     var keywordTextField = UITextField()
     var pageCountTextField = UITextField()
     var searchButton = UIButton()
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setTextFieldObservable()
         keywordTextField.delegate = self
         pageCountTextField.delegate = self
         bindViewModel()
@@ -82,6 +86,20 @@ class SearchViewController: UIViewController {
         }
     }
     
+    func setTextFieldObservable() {
+        keywordTextField.rx.text.orEmpty.asObservable()
+            .subscribe(onNext: { [weak self] (text) in
+                self?.viewModel.keyword = text
+            }, onDisposed: {})
+            .disposed(by: disposeBag)
+        
+        pageCountTextField.rx.text.orEmpty.asObservable()
+            .subscribe(onNext: { [weak self] (text) in
+                self?.viewModel.pageCount = Int(text)
+            }, onDisposed: {})
+            .disposed(by: disposeBag)
+    }
+    
     func pageCountTextFieldConstraints(make: ConstraintMaker) {
         make.leading.equalToSuperview().offset(40)
         make.trailing.equalToSuperview().offset(-40)
@@ -98,16 +116,12 @@ class SearchViewController: UIViewController {
     }
     
     @objc func searchButtonClick() {
+        guard let keyword = viewModel.keyword else { return }
+        guard let pageCount = viewModel.pageCount else { return }
         let vc = SearchResultViewController()
-        if let keyword = keywordTextField.text,
-            let pageCount = pageCountTextField.text,
-            let pageCountInt = Int(pageCount) {
-            vc.keyword = keyword
-            vc.pageCount = pageCountInt
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            toast.showToast(text: "格式錯誤，不可含有空白", view: view)
-        }
+        vc.keyword = keyword
+        vc.pageCount = pageCount
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func keyboardWillChange(notification: Notification) {
@@ -127,8 +141,7 @@ class SearchViewController: UIViewController {
                 pageCountTextField.snp.remakeConstraints { (make) in
                     pageCountTextFieldConstraints(make: make)
                 }
-                viewModel.search = (keywordTextField.text ?? " ",
-                                    pageCountTextField.text ?? " ")
+                viewModel.checkFormat()
             }
             UIView.animate(withDuration: duration,
                            delay: 0.1,
