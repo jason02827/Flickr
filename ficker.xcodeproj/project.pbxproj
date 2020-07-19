@@ -127,13 +127,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		9621FEE0240BEDFA002EF817 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		962E465424BA01F900B55A6A /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,7 +255,6 @@
 				962E465C24BB16F200B55A6A /* FavoriteView */,
 				962E465824BB163200B55A6A /* SearchResultView */,
 				962E465424BA01F900B55A6A /* SearchView */,
-				9621FEE0240BEDFA002EF817 /* ViewModel */,
 				96177EF924C013AC006AC043 /* Extension */,
 				9617F54223F5A322002E24E3 /* Common */,
 				9615840823F4383F007BECB8 /* Data */,
@@ -358,6 +350,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-ficker/Pods-ficker-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -366,6 +361,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

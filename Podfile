@@ -10,5 +10,7 @@ target 'ficker' do
 	pod "Alamofire"
 	pod 'Kingfisher'
 	pod 'SnapKit'
+	pod 'RxSwift'
+	pod 'RxCocoa'
 
 end
