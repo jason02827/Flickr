@@ -42,7 +42,7 @@ class SearchViewController: UIViewController {
     func bindViewModel() {
         viewModel.checkCompletion = { [weak self] (isShow) in
             if !isShow {
-                self?.toast.showToast(text: "格式錯誤，不可含有空白", view: self!.view)
+                self?.toast.showToast(text: "含有空白或其他格式錯誤", view: self!.view)
             }
             self?.checkSearchButton(isShow: isShow)
         }
